@@ -3,15 +3,14 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
-import { ExportMenu } from './ExportMenu'
 import Editor from 'react-simple-code-editor'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-javascript'
 import 'prismjs/themes/prism-tomorrow.css'
 
 interface CodeSnippetProps {
-  code: string
-  setCode: (code: string) => void
+  code: { title: string; content: string }
+  setCode: (code: { title: string; content: string }) => void
   background: { type: string; value: string }
   padding: number
   borderRadius: number
@@ -28,7 +27,6 @@ export default function CodeSnippet({
   borderRadius,
   inset,
   language,
-  title,
 }: CodeSnippetProps) {
   const [width, setWidth] = useState(500)
   const [height, setHeight] = useState(200)
@@ -79,7 +77,7 @@ export default function CodeSnippet({
       }
       updateHeight()
     }
-  }, [code])
+  }, [code.content])
 
   return (
     <div className="flex flex-col items-center relative min-h-36 h-full w-full">
@@ -113,14 +111,20 @@ export default function CodeSnippet({
               <div className="w-3 h-3 rounded-full bg-[#28C840]"></div>
             </div>
             <div className="text-zinc-400 text-sm flex-grow text-center">
-              {title || 'My Image'}
+              <input
+                type="text"
+                value={code.title}
+                onChange={(e) => setCode({ ...code, title: e.target.value })}
+                placeholder="Snippet Title"
+                className="text-zinc-400 text-sm bg-transparent focus:outline-none"
+              />
             </div>
             <div className="w-16"></div>
           </div>
           <div style={{ padding: `${padding}px` }}>
             <Editor
-              value={code}
-              onValueChange={(value) => setCode(value)}
+              value={code.content}
+              onValueChange={(content) => setCode({ ...code, content })}
               highlight={(code) => Prism.highlight(code, Prism.languages.javascript, 'javascript')}
               padding={10}
               style={{
@@ -147,7 +151,6 @@ export default function CodeSnippet({
           <X className="h-4 w-4 mr-2" />
           Set to auto width
         </Button>
-        <ExportMenu code={code} language={language} title={title} />
       </div>
     </div>
   )

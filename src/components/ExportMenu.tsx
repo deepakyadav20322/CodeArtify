@@ -29,7 +29,7 @@ export function ExportMenu({ code, language, title }: ExportMenuProps) {
     }
 
     try {
-      const canvas = await html2canvas(element, {
+      const canvas = await html2canvas(element as HTMLElement, {
         scale: 2,
         backgroundColor: null,
       })

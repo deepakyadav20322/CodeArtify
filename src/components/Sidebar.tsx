@@ -69,7 +69,7 @@ export default function Sidebar({
   }, [backgroundType, gradientColor1, gradientColor2])
 
   return (
-    <div className="w-80 bg-[#111111] text-white p-4 h-screen overflow-y-auto border-r border-zinc-800">
+    <div className="w-[23rem] bg-[#111111] text-white p-4 h-screen overflow-y-auto border-r border-zinc-800">
       <h2 className="text-lg font-semibold mb-4">Background</h2>
       
       <div className="space-y-6">
@@ -101,14 +101,14 @@ export default function Sidebar({
           </div>
         </div>
 
-        <div className="relative">
+        {/* <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
           <Input
             type="text"
             placeholder="Type to search..."
             className="pl-9 bg-zinc-900 border-zinc-800 text-white h-10"
           />
-        </div>
+        </div> */}
 
         <Tabs defaultValue="gradient" className="w-full">
           <TabsList className="w-full grid grid-cols-3 gap-1 bg-zinc-900 p-1 h-10">

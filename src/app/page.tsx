@@ -11,9 +11,8 @@ export default function Home() {
   const [padding, setPadding] = useState(16)
   const [borderRadius, setBorderRadius] = useState(8)
   const [inset, setInset] = useState(8)
-  const [code, setCode] = useState("It is editable")
+  const [code, setCode] = useState({ title: '', content: 'It is editable' }) // Updated
   const [language, setLanguage] = useState('javascript')
-  const [title, setTitle] = useState('')
 
   return (
     <div className="flex h-screen bg-[#111111]">
@@ -26,24 +25,23 @@ export default function Home() {
         setBorderRadius={setBorderRadius}
         inset={inset}
         setInset={setInset}
-        title={title}
-        setTitle={setTitle}
+        title={code.title} // Use code.title
+        setTitle={(title) => setCode({ ...code, title })} // Update title in code object
         language={language}
         setLanguage={setLanguage}
       />
       <main className="flex-1 p-4 flex flex-col items-center justify-center overflow-y-auto">
         <CodeSnippet
-          code={code}
-          setCode={setCode}
+          code={code} // Pass entire code object
+          setCode={setCode} // Function to update code
           background={background}
           padding={padding}
           borderRadius={borderRadius}
           inset={inset}
           language={language}
-          title={title}
+          title={code.title} // Use code.title
         />
       </main>
     </div>
   )
 }
-
