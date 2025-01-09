@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { RotateCcw, Search } from 'lucide-react'
 import { HexColorPicker } from "react-colorful"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ExportMenu } from './ExportMenu'
 
 interface SidebarProps {
   background: { type: string; value: string }
@@ -71,7 +72,7 @@ export default function Sidebar({
   return (
     <div className="w-[23rem] bg-[#111111] text-white p-4 h-screen overflow-y-auto border-r border-zinc-800">
       <h2 className="text-lg font-semibold mb-4">Background</h2>
-      
+      <ExportMenu code={background.value} language={language} title={title}/>
       <div className="space-y-6">
         <div className="space-y-4">
           <div>
