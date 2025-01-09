@@ -30,7 +30,7 @@ export function ExportMenu({
 }: ExportMenuProps) {
   const [exporting, setExporting] = useState<ExportFormat | null>(null)
   const {toast} = useToast();
-  
+
   const sanitizeFilename = (name: string): string => {
     return name.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'untitled'
   }
@@ -131,10 +131,10 @@ export function ExportMenu({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button 
-          variant="outline" 
+          variant="secondary" 
           size="sm" 
           disabled={!!exporting}
-          className="text-zinc-400 hover:text-white"
+          className="text-zinc-400 hover:text-white bg-black border border-gray-200 hover:bg-black"
           aria-label="Export code snippet"
         >
           {exporting ? (

@@ -103,13 +103,13 @@ export default function CodeSnippet({
               <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
               <div className="w-3 h-3 rounded-full bg-[#28C840]"></div>
             </div>
-            <div className="text-zinc-400 text-sm flex-grow text-center flex justify-center items-center ">
+            <div className="text-zinc-400 text-sm flex-grow text-center  ">
               <input
                 type="text"
                 value={code.title}
                 onChange={(e) => setCode({ ...code, title: e.target.value })}
                 placeholder="Snippet Title"
-                className="text-zinc-400 text-sm bg-transparent focus:outline-none text-center"
+                className="text-zinc-300 text-sm bg-transparent focus:outline-none text-center"
               />
             </div>
             <div className="w-16"></div>

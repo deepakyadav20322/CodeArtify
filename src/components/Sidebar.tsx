@@ -71,8 +71,10 @@ export default function Sidebar({
 
   return (
     <div className="w-[23rem] bg-[#111111] text-white p-4 h-screen overflow-y-auto border-r border-zinc-800">
-      <h2 className="text-lg font-semibold mb-4">Background</h2>
+      <div className='flex justify-between items-center gap-x-4 p-2'>
+      <h2 className="text-lg font-semibold">Code-Artify</h2>
       <ExportMenu code={background.value} language={language} title={title}/>
+      </div>
       <div className="space-y-6">
         <div className="space-y-4">
           <div>
@@ -187,7 +189,9 @@ export default function Sidebar({
         </Tabs>
 
         <div className="space-y-6">
-          <div>
+           {/* {comment padding-------------------- } */}
+          {/* <div>
+           
             <div className="flex items-center justify-between mb-3">
               <label className="text-sm text-zinc-400">Padding</label>
               <Button
@@ -208,7 +212,7 @@ export default function Sidebar({
               step={1}
               className="[&_[role=slider]]:bg-purple-600"
             />
-          </div>
+          </div> */}
 
           <div>
             <div className="flex items-center justify-between mb-3">
