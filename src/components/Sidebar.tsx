@@ -114,7 +114,7 @@ export default function Sidebar({
         </div> */}
 
         <Tabs defaultValue="gradient" className="w-full">
-          <TabsList className="w-full grid grid-cols-3 gap-1 bg-zinc-900 p-1 h-10">
+          <TabsList className="w-full grid grid-cols-2 gap-1 bg-zinc-900 p-1 h-10">
             <TabsTrigger 
               value="gradient" 
               className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
@@ -125,14 +125,14 @@ export default function Sidebar({
               value="color"
               className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
             >
-              Color
+              Controler
             </TabsTrigger>
-            <TabsTrigger 
+            {/* <TabsTrigger 
               value="image"
               className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
             >
               Image
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
 
           <TabsContent value="gradient" className="space-y-6 mt-6">
@@ -239,7 +239,7 @@ export default function Sidebar({
 
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="text-sm text-zinc-400">Inset</label>
+              <label className="text-sm text-zinc-400">Space{" "}/{" "}padding</label>
               <Button
                 variant="ghost"
                 size="sm"

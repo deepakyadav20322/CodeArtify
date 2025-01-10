@@ -30,7 +30,7 @@ export default function Home() {
         language={language}
         setLanguage={setLanguage}
       />
-      <main className="flex-1 p-4 flex flex-col items-center justify-center overflow-y-auto">
+      <main className="flex-1 p-4 flex flex-col items-center justify-center overflow-y-auto mt-8">
         <CodeSnippet
           code={code} // Pass entire code object
           setCode={setCode} // Function to update code

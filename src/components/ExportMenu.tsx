@@ -1,48 +1,45 @@
-'use client'
-
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Download, Loader2 } from 'lucide-react'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Download, Loader2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import html2canvas from 'html2canvas'
-import { useToast } from "@/hooks/use-toast"
+} from '@/components/ui/dropdown-menu';
+import html2canvas from 'html2canvas';
+import { useToast } from '@/hooks/use-toast';
 
-
-type ExportFormat = 'png' | 'jpeg' | 'svg'
+type ExportFormat = 'png' | 'jpeg' ;
 
 interface ExportMenuProps {
-  code: string
-  language: string
-  title: string
-  containerSelector?: string // Allow custom selector
+  code: string;
+  language: string;
+  title: string;
+  containerSelector?: string; // Allow custom selector
 }
 
 export function ExportMenu({
   code,
   language,
   title,
-  containerSelector = '.code-snippet-container'
+  containerSelector = '.code-snippet-container',
 }: ExportMenuProps) {
-  const [exporting, setExporting] = useState<ExportFormat | null>(null)
-  const {toast} = useToast();
+  const [exporting, setExporting] = useState<ExportFormat | null>(null);
+  const { toast } = useToast();
 
   const sanitizeFilename = (name: string): string => {
-    return name.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'untitled'
-  }
+    return name.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'untitled';
+  };
 
   const downloadFile = (dataUrl: string, filename: string) => {
-    const link = document.createElement('a')
-    link.href = dataUrl
-    link.download = sanitizeFilename(filename)
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = sanitizeFilename(filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const createSvgExport = (width: number, height: number): string => {
     const escapedCode = code
@@ -50,7 +47,7 @@ export function ExportMenu({
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;')
+      .replace(/'/g, '&#039;');
 
     return `
       <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
@@ -64,23 +61,23 @@ export function ExportMenu({
           </div>
         </foreignObject>
       </svg>
-    `
-  }
+    `;
+  };
 
   const exportAs = async (format: ExportFormat) => {
-    if (exporting) return
+    if (exporting) return;
 
-    setExporting(format)
-    const element = document.querySelector(containerSelector)
+    setExporting(format);
+    const element = document.querySelector(containerSelector);
 
     if (!element) {
       toast({
         title: 'Export Failed',
         description: 'Could not find the code container element.',
         variant: 'destructive',
-      })
-      setExporting(null)
-      return
+      });
+      setExporting(null);
+      return;
     }
 
     try {
@@ -89,50 +86,50 @@ export function ExportMenu({
         backgroundColor: format === 'jpeg' ? '#1E1E1E' : null,
         logging: false,
         useCORS: true,
-      })
+      });
 
-      let dataUrl: string
-      let filename = `${title}-${language}`
+      let dataUrl: string;
+      let filename = `${title}-${language}`;
 
       switch (format) {
         case 'png':
-          dataUrl = canvas.toDataURL('image/png')
-          filename += '.png'
-          break
+          dataUrl = canvas.toDataURL('image/png');
+          filename += '.png';
+          break;
         case 'jpeg':
-          dataUrl = canvas.toDataURL('image/jpeg', 0.92)
-          filename += '.jpg'
-          break
-        case 'svg':
-          const svgData = createSvgExport(canvas.width, canvas.height)
-          dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgData)}`
-          filename += '.svg'
-          break
+          dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+          filename += '.jpg';
+          break;
+        // case 'svg':
+        //   const svgData = createSvgExport(canvas.width, canvas.height);
+        //   dataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgData)}`;
+        //   filename += '.svg';
+        //   break;
       }
 
-      downloadFile(dataUrl, filename)
+      downloadFile(dataUrl, filename);
       toast({
         title: 'Export Successful',
         description: `Your code has been exported as ${format.toUpperCase()}`,
-      })
+      });
     } catch (error) {
-      console.error('Export failed:', error)
+      console.error('Export failed:', error);
       toast({
         title: 'Export Failed',
         description: 'An error occurred while exporting your code.',
         variant: 'destructive',
-      })
+      });
     } finally {
-      setExporting(null)
+      setExporting(null);
     }
-  }
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button 
-          variant="secondary" 
-          size="sm" 
+        <Button
+          variant="secondary"
+          size="sm"
           disabled={!!exporting}
           className="text-zinc-400 hover:text-white bg-black border border-gray-200 hover:bg-black"
           aria-label="Export code snippet"
@@ -151,7 +148,7 @@ export function ExportMenu({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        {(['png', 'jpeg', 'svg'] as const).map((format) => (
+        {(['png', 'jpeg'] as const).map((format) => (
           <DropdownMenuItem
             key={format}
             onClick={() => exportAs(format)}
@@ -163,5 +160,5 @@ export function ExportMenu({
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
